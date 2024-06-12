@@ -6,7 +6,6 @@ import { AuthDTO } from './dto';
 export class AuthController {
   // auth service is automatically created when initializing the controller
   constructor(private authService: AuthService) {}
-  // some request from client
   @Post('/register') // register a new user
   async register(
     // @Req() req:Request

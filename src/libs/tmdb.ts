@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { MOVIE_TYPE } from 'src/constant';
-import { getListDTO } from 'src/tv-series/dto';
-
+import { getListDTO } from 'src/modules/tv-series/dto';
 const apiKey = process.env.API_KEY;
 export class TheMovieDBLib {
   constructor() {}

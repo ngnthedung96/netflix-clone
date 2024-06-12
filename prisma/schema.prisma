@@ -37,7 +37,6 @@ model User {
 }
 
 model WatchList {
-  id          Int      @id @default(autoincrement())
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
   movieId     Int
@@ -45,11 +44,11 @@ model WatchList {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
 
+  @@id([userId, movieId])
   @@map("watch-list")
 }
 
 model FavoriteList {
-  id          Int      @id @default(autoincrement())
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
   movieId     Int
@@ -57,5 +56,6 @@ model FavoriteList {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
 
+  @@id([userId, movieId])
   @@map("favorite-list")
 }

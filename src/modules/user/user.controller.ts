@@ -2,8 +2,8 @@ import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserRole } from '@prisma/client';
 import { Request } from 'express';
-import { Role } from 'src/auth/decorator/roles.decorator';
-import { RolesGuard } from 'src/auth/guard/roles.guard';
+import { Role } from 'src/decorator/roles.decorator';
+import { RolesGuard } from 'src/guard/roles.guard';
 
 @Controller('users')
 export class UserController {

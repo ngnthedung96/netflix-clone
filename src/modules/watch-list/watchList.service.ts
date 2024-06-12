@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { addWatchListDTO, getWatchListDTO } from './dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 @Injectable({})
 export class WatchListService {
   constructor(private prismaService: PrismaService) {}

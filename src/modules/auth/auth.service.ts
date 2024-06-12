@@ -4,10 +4,10 @@ import {
   Injectable,
   Req,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import * as argon from 'argon2';
 import { AuthDTO } from './dto';
 import { JWTLib } from 'src/libs';
+import { PrismaService } from '../prisma/prisma.service';
 @Injectable({})
 export class AuthService {
   jwtLib: JWTLib;

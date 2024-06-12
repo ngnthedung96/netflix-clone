@@ -21,26 +21,24 @@ CREATE TABLE "users" (
 
 -- CreateTable
 CREATE TABLE "watch-list" (
-    "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "movieId" INTEGER NOT NULL,
     "description" TEXT NOT NULL DEFAULT '',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "watch-list_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "watch-list_pkey" PRIMARY KEY ("userId","movieId")
 );
 
 -- CreateTable
 CREATE TABLE "favorite-list" (
-    "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "movieId" INTEGER NOT NULL,
     "description" TEXT NOT NULL DEFAULT '',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "favorite-list_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "favorite-list_pkey" PRIMARY KEY ("userId","movieId")
 );
 
 -- CreateIndex
