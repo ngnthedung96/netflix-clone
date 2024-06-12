@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserSubcription {
+  BASIC
+  PREMIUM
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id             Int             @id @default(autoincrement())
+  email          String          @unique @default("")
+  hashedPassword String
+  firstName      String?
+  lastName       String          @default("")
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @default(now())
+  subcription    UserSubcription @default(BASIC)
+  role           UserRole        @default(USER)
+  watchList      WatchList[]
+  favoriteList   FavoriteList[]
+
+  @@map("users")
+}
+
+model WatchList {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  movieId     Int
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  @@map("watch-list")
+}
+
+model FavoriteList {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  movieId     Int
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  @@map("favorite-list")
+}
