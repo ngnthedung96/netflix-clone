@@ -20,6 +20,11 @@ enum UserRole {
   USER
 }
 
+enum MovieType {
+  TV_SERIES
+  MOVIES
+}
+
 model User {
   id               Int             @id @default(autoincrement())
   email            String          @unique @default("")
@@ -42,6 +47,7 @@ model WatchList {
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
   movieId     Int
+  mediaType MovieType
   description String   @default("")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
@@ -54,6 +60,7 @@ model FavoriteList {
   userId      Int
   user        User     @relation(fields: [userId], references: [id])
   movieId     Int
+  mediaType MovieType
   description String   @default("")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())

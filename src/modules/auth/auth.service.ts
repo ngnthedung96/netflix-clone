@@ -56,7 +56,6 @@ export class AuthService {
         token: await this.jwtLib.signJwtToken(user.id, user.email),
       };
     } catch (e) {
-      console.log(e);
       throw new BadRequestException('Failed to login');
     }
   }

@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { MOVIE_TYPE } from 'src/constant';
-import { normalizeMovieListRes } from 'src/helpers';
+import { normalizeSearchListRes } from 'src/helpers';
 import { getListDTO } from 'src/modules/tv-series/dto';
 export class TheMovieDBLib {
   private configService: ConfigService;
@@ -25,13 +25,14 @@ export class TheMovieDBLib {
 
       const response = await axios.request(options);
       const responseData = response.data;
-      const normalize = normalizeMovieListRes(responseData.results);
+      const normalize = normalizeSearchListRes(responseData.results);
       if (!normalize) return false;
       return { ...response.data, results: normalize };
     } catch (e) {
       throw e;
     }
   }
+
   async searchPerson(param?: { [key: string]: number | string }) {
     try {
       const options = {

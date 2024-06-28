@@ -12,6 +12,7 @@ export class FavoriteListService {
       });
       return newMovie;
     } catch (e) {
+      console.log(e);
       throw new BadRequestException(
         'Failed to add a movie to the favorite list',
       );

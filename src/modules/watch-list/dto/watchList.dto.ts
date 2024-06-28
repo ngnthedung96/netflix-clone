@@ -1,3 +1,4 @@
+import { MovieType } from '@prisma/client';
 import {
   IsEmail,
   IsNotEmpty,
@@ -24,6 +25,9 @@ export class addWatchListDTO {
 
   @IsNotEmpty({ message: 'Movie id must not be empty' })
   movieId: number;
+
+  @IsNotEmpty({ message: 'Media type must not be empty' })
+  mediaType: MovieType;
 
   @IsOptional()
   description: string;
