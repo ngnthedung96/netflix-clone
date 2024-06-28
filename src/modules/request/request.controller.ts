@@ -7,28 +7,28 @@ import {
   Get,
   UseGuards,
 } from '@nestjs/common';
-import { FavoriteListService } from './favoriteList.service';
-import { addFavoriteListDTO, getFavoriteListDTO } from './dto';
+import { RequestService } from './request.service';
+import { getDetailDTO, getRequestListDTO, addRequestDTO } from './dto';
 import { Role } from 'src/decorator/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/guard/roles.guard';
 import { UserRole } from '@prisma/client';
 
-@Controller('favorite-list')
-export class FavoriteListController {
-  constructor(private favoriteListService: FavoriteListService) {}
+@Controller('request')
+export class RequestController {
+  constructor(private requestService: RequestService) {}
 
   @Role([UserRole.ADMIN, UserRole.USER]) // Specify the roles required to access this endpoint
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Post('/add')
-  async add(@Body() body: addFavoriteListDTO) {
-    return await this.favoriteListService.add(body);
+  async add(@Body() body: addRequestDTO) {
+    return await this.requestService.add(body);
   }
 
   @Role([UserRole.ADMIN, UserRole.USER]) // Specify the roles required to access this endpoint
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Get('/get')
-  async get(@Query() query: getFavoriteListDTO) {
-    return await this.favoriteListService.get(query);
+  async get(@Query() query: getRequestListDTO) {
+    return await this.requestService.get(query);
   }
 }

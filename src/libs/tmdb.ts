@@ -1,26 +1,33 @@
+import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { MOVIE_TYPE } from 'src/constant';
+import { normalizeMovieListRes } from 'src/helpers';
 import { getListDTO } from 'src/modules/tv-series/dto';
-const apiKey = process.env.API_KEY;
 export class TheMovieDBLib {
-  constructor() {}
+  private configService: ConfigService;
+  constructor() {
+    this.configService = new ConfigService();
+  }
   //--------------- search------------------
   async searchMulti(param?: { [key: string]: number | string }) {
     try {
       const options = {
         method: 'GET',
-        url: 'https://api.themoviedb.org/3/search/multi?include_adult=false&language=en-US',
+        url: 'https://api.themoviedb.org/3/search/multi',
         headers: {
           accept: 'application/json',
         },
         params: {
-          api_key: apiKey,
+          api_key: this.configService.get('API_KEY'),
           ...param,
         },
       };
 
       const response = await axios.request(options);
-      return response.data;
+      const responseData = response.data;
+      const normalize = normalizeMovieListRes(responseData.results);
+      if (!normalize) return false;
+      return { ...response.data, results: normalize };
     } catch (e) {
       throw e;
     }
@@ -29,12 +36,12 @@ export class TheMovieDBLib {
     try {
       const options = {
         method: 'GET',
-        url: 'https://api.themoviedb.org/3/search/person?include_adult=false&language=en-US',
+        url: 'https://api.themoviedb.org/3/search/person',
         headers: {
           accept: 'application/json',
         },
         params: {
-          api_key: apiKey,
+          api_key: this.configService.get('API_KEY'),
           ...param,
         },
       };
@@ -67,7 +74,7 @@ export class TheMovieDBLib {
           accept: 'application/json',
         },
         params: {
-          api_key: apiKey,
+          api_key: this.configService.get('API_KEY'),
           ...param,
         },
       };
@@ -89,7 +96,7 @@ export class TheMovieDBLib {
           accept: 'application/json',
         },
         params: {
-          api_key: apiKey,
+          api_key: this.configService.get('API_KEY'),
         },
       };
 

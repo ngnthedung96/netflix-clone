@@ -21,17 +21,19 @@ enum UserRole {
 }
 
 model User {
-  id             Int             @id @default(autoincrement())
-  email          String          @unique @default("")
-  hashedPassword String
-  firstName      String?
-  lastName       String          @default("")
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @default(now())
-  subcription    UserSubcription @default(BASIC)
-  role           UserRole        @default(USER)
-  watchList      WatchList[]
-  favoriteList   FavoriteList[]
+  id               Int             @id @default(autoincrement())
+  email            String          @unique @default("")
+  hashedPassword   String
+  firstName        String?
+  lastName         String          @default("")
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @default(now())
+  premiumExpiredAt DateTime        @default(now())
+  subcription      UserSubcription @default(BASIC)
+  role             UserRole        @default(USER)
+  watchList        WatchList[]
+  favoriteList     FavoriteList[]
+  requests         Request[]
 
   @@map("users")
 }
@@ -58,4 +60,16 @@ model FavoriteList {
 
   @@id([userId, movieId])
   @@map("favorite-list")
+}
+
+model Request {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  imgUrl      String   @default("")
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  @@map("request")
 }
